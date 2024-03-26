@@ -1,0 +1,40 @@
+# .NET compiled files
+obj/
+bin/
+*.dll
+*.exe
+*.pdb
+*.user
+*.vspscc
+*.cache
+*.suo
+*.userprefs
+*.log
+*.cache
+*.DS_Store
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE - JetBrains Rider
+.idea/
+
+# IDE - Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+logs
+
+# Windows
+Thumbs.db
+ehthumbs.db
