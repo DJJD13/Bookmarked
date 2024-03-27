@@ -1,16 +1,18 @@
+import { SyntheticEvent } from "react";
 
 interface Props {
-    search: string | undefined;
-    onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    searchIsbn: string | undefined;
+    onSearchIsbnSubmit: (e: SyntheticEvent) => void;
+    handleSearchIsbnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const Search: React.FC<Props> = ({ search, onClick, handleChange }: Props): JSX.Element => {
+const Search: React.FC<Props> = ({ searchIsbn, onSearchIsbnSubmit, handleSearchIsbnChange }: Props): JSX.Element => {
     return (
-        <div>
-            <input value={search} onChange={(e) => handleChange(e)}></input>
-            <button onClick={(e) => onClick(e)} />
-        </div>
+        <>
+            <form onSubmit={onSearchIsbnSubmit}>
+                <input value={searchIsbn} onChange={handleSearchIsbnChange} placeholder="ISBN here..." />
+            </form>
+        </>
     );
 }
 

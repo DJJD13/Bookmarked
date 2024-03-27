@@ -9,6 +9,9 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\Components\Bookshelf\AddBookshelf\" />
+    <Folder Include="src\Components\Bookshelf\ListBookshelf\" />
+    <Folder Include="src\Components\Bookshelf\DeleteBookshelf\" />
     <Folder Include="src\Components\Card\" />
     <Folder Include="src\Components\CardList\" />
     <Folder Include="src\Components\SearchTitle\" />

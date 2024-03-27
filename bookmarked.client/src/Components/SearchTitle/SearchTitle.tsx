@@ -1,16 +1,18 @@
+import { SyntheticEvent } from "react";
 
 interface Props {
     searchTitle: string;
-    handleChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleClickTitle: () => void;
+    handleSearchTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onSearchTitleSubmit: (e: SyntheticEvent) => void;
 };
 
-const SearchTitle: React.FC<Props> = ({ searchTitle, handleChangeTitle, handleClickTitle}: Props): JSX.Element => {
+const SearchTitle: React.FC<Props> = ({ searchTitle, handleSearchTitleChange, onSearchTitleSubmit}: Props): JSX.Element => {
     return (
-        <div>
-            <input value={searchTitle} onChange={(e) => handleChangeTitle(e)}></input>
-            <button onClick={() => handleClickTitle()} />
-        </div>
+        <>
+            <form onSubmit={onSearchTitleSubmit}>
+                <input value={searchTitle} onChange={handleSearchTitleChange} placeholder="Title here..." />
+            </form>
+        </>
     );
 }
 

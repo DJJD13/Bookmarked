@@ -30,6 +30,12 @@
     font-weight: 600;
 }
 
+.card .summary {
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
 .card .summary p{
     font-weight: 300;
 }

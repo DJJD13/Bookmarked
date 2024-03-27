@@ -1,10 +1,13 @@
+import { SyntheticEvent } from "react";
+import AddBookshelf from "../Bookshelf/AddBookshelf/AddBookshelf";
 import "./Card.css"
 interface Props {
     id: string;
     searchResult: Book;
+    onBookshelfCreate: (e: SyntheticEvent) => void;
 }
 
-const Card: React.FC<Props> = ({ id, searchResult }: Props) : JSX.Element => {
+const Card: React.FC<Props> = ({ id, searchResult, onBookshelfCreate }: Props) : JSX.Element => {
     return (
         <div className="card">
             <img src={searchResult.image} alt="Book cover" />
@@ -15,6 +18,7 @@ const Card: React.FC<Props> = ({ id, searchResult }: Props) : JSX.Element => {
                 <h5>ISBN: {id}</h5>
                 <hr />
                 <p className="summary">{searchResult.synopsis}</p>
+                <AddBookshelf onBookshelfCreate={onBookshelfCreate} isbn={searchResult.isbn} />
             </div>
         </div>
     )
