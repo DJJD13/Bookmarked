@@ -11,14 +11,16 @@ interface Props {
 const CardList: React.FC<Props> = ({searchResults, onBookshelfCreate}: Props) : JSX.Element => {
     return <>
         <h2>Count: {searchResults.total}</h2>
-        <div className="card-list">
+        <div className="p-1 flex flex-wrap items-center justify-center">
             {searchResults.books.length > 0 ? (
                 searchResults.books.map((book) => {
                     return <Card id={book.isbn} key={uuidv4()} searchResult={book} onBookshelfCreate={onBookshelfCreate} />
                 })
             ): (
-                <h1>No Results</h1>
-                )}
+                <p className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">
+                    No results!
+                </p>
+            )}
         </div>
     </>;
 }

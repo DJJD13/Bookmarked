@@ -14,8 +14,13 @@
     <Folder Include="src\Components\Bookshelf\DeleteBookshelf\" />
     <Folder Include="src\Components\Card\" />
     <Folder Include="src\Components\CardList\" />
+    <Folder Include="src\Components\Hero\" />
+    <Folder Include="src\Components\NavBar\" />
     <Folder Include="src\Components\SearchTitle\" />
     <Folder Include="src\Components\Search\" />
-    <Folder Include="src\Pages\" />
+    <Folder Include="src\Routes\" />
+    <Folder Include="src\Pages\BookPage\" />
+    <Folder Include="src\Pages\HomePage\" />
+    <Folder Include="src\Pages\SearchPage\" />
   </ItemGroup>
 </Project>
