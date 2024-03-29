@@ -5,9 +5,9 @@ const headers = {
     "Authorization": import.meta.env.VITE_API_KEY
 };
 
-export const searchByISBN = async (query: string) => {
+export const getBookByISBN = async (query: string) => {
     try {
-        const data = await axios.get<Book>(
+        const data = await axios.get<ISBNBookResponse>(
             `https://api2.isbndb.com/book/${query}`, { headers }
         );
         return data;

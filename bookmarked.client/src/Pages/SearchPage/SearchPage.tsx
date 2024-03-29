@@ -3,7 +3,7 @@ import Search from "../../Components/Search/Search";
 import SearchTitle from "../../Components/SearchTitle/SearchTitle";
 import ListBookshelf from "../../Components/Bookshelf/ListBookshelf/ListBookshelf";
 import CardList from "../../Components/CardList/CardList";
-import { searchByISBN, searchByTitle } from "../../api";
+import { getBookByISBN, searchByTitle } from "../../api";
 
 interface Props {
 }
@@ -44,11 +44,11 @@ const SearchPage: React.FC<Props> = (props: Props): JSX.Element => {
 
     const onSearchIsbnSubmit = async (e: SyntheticEvent) => {
         e.preventDefault();
-        const result = await searchByISBN(searchIsbn);
+        const result = await getBookByISBN(searchIsbn);
         if (typeof result === "string") {
             setServerError(result);
         } else if (typeof result.data === "object") {
-            setSearchIsbnResult(result.data);
+            setSearchIsbnResult(result.data.book);
         }
         console.log(searchIsbnResult);
     }

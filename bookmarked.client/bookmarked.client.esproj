@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
   <PropertyGroup>
     <StartupCommand>npm run dev</StartupCommand>
     <JavaScriptTestRoot>src\</JavaScriptTestRoot>
@@ -9,15 +9,21 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\Components\AuthorDetail\" />
+    <Folder Include="src\Components\BookDashboard\" />
+    <Folder Include="src\Components\BookDetail\" />
     <Folder Include="src\Components\Bookshelf\AddBookshelf\" />
     <Folder Include="src\Components\Bookshelf\ListBookshelf\" />
     <Folder Include="src\Components\Bookshelf\DeleteBookshelf\" />
+    <Folder Include="src\Components\Bookshelf\ListBookshelf\" />
     <Folder Include="src\Components\Card\" />
     <Folder Include="src\Components\CardList\" />
     <Folder Include="src\Components\Hero\" />
     <Folder Include="src\Components\NavBar\" />
     <Folder Include="src\Components\SearchTitle\" />
     <Folder Include="src\Components\Search\" />
+    <Folder Include="src\Components\Sidebar\" />
+    <Folder Include="src\Components\Tile\" />
     <Folder Include="src\Routes\" />
     <Folder Include="src\Pages\BookPage\" />
     <Folder Include="src\Pages\HomePage\" />
