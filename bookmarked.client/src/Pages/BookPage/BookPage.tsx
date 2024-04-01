@@ -28,7 +28,7 @@ const BookPage: React.FC<Props> = (props: Props): JSX.Element => {
 			{bookDetails ? (
 				<div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
 					<Sidebar />
-					<BookDashboard>
+					<BookDashboard isbn={isbn!}>
 						<Tile title="Book Title" subtitle={bookDetails.title} />
 						<Tile
 							title="Author"
