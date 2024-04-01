@@ -1,16 +1,12 @@
-import { testBookData } from "./testdata";
 
-const data = testBookData;
-
-interface Props { }
-
-type BookDetails = (typeof data)[0];
+interface Props {
+    configs: any;
+    data: any;
+}
 
 
-
-
-const Table: React.FC<Props> = (props: Props): JSX.Element => {
-    const renderedRow = data.map((book) => {
+const Table: React.FC<Props> = ({ configs, data }: Props): JSX.Element => {
+    const renderedRow = data.map((book: any) => {
         return (
             <tr key={book.isbn}>
                 {configs.map((val: any) => {

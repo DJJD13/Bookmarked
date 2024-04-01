@@ -20,11 +20,13 @@
     <Folder Include="src\Components\CardList\" />
     <Folder Include="src\Components\Hero\" />
     <Folder Include="src\Components\NavBar\" />
+    <Folder Include="src\Components\Spinner\" />
     <Folder Include="src\Components\RatioList\" />
     <Folder Include="src\Components\SearchTitle\" />
     <Folder Include="src\Components\Search\" />
     <Folder Include="src\Components\Sidebar\" />
     <Folder Include="src\Components\Tile\" />
+    <Folder Include="src\Helpers\" />
     <Folder Include="src\Pages\DesignPage\" />
     <Folder Include="src\Routes\" />
     <Folder Include="src\Pages\BookPage\" />

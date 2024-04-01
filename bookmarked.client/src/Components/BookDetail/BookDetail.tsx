@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { getBookByISBN } from "../../api";
 import RatioList from "../RatioList/RatioList";
+import Spinner from "../Spinner/Spinner";
 
 interface Props {}
 
@@ -70,7 +71,7 @@ const BookDetail: React.FC<Props> = (props: Props): JSX.Element => {
         {bookData ? (
             <RatioList data={bookData} config={tableConfig} />    
         ): (
-            <div>Loading...</div>
+            <Spinner />
             ) 
         }
     </>);

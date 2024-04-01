@@ -17,7 +17,7 @@ const DesignPage: React.FC<Props> = (props: Props) : JSX.Element => {
         <h1>Bookmarked Design Page</h1>
         <h2>This is Bookmarked's design page. This is where we will house various design aspects of the app</h2>
         <RatioList data={testBookData} config={tableConfig} />
-        <Table />
+          <Table data={testBookData} configs={tableConfig} />
       </> 
   );
 }
