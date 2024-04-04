@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Bookmarked.Server.Dtos.Comment;
 
 namespace Bookmarked.Server.Dtos.Book
 {
@@ -13,5 +14,6 @@ namespace Bookmarked.Server.Dtos.Book
         public decimal Msrp { get; set; }
         public int Pages { get; set; }
         public string CoverImage { get; set; } = string.Empty;
+        public List<CommentDto> Comments { get; set; } = [];
     }
 }

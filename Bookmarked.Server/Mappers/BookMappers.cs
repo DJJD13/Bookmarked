@@ -17,7 +17,8 @@ namespace Bookmarked.Server.Mappers
                 DatePublished = bookModel.DatePublished,
                 Msrp = bookModel.Msrp,
                 Pages = bookModel.Pages,
-                CoverImage = bookModel.CoverImage
+                CoverImage = bookModel.CoverImage,
+                Comments = bookModel.Comments.Select(c => c.ToCommentDto()).ToList()
             };
         }
 
