@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bookmarked.Server.Models
 {
+    [Table("Books")]
     public class Book
     {
         public int Id { get; set; }
@@ -17,5 +18,7 @@ namespace Bookmarked.Server.Models
         public string CoverImage { get; set; } = string.Empty;
 
         public List<Comment> Comments { get; set; } = [];
+        public List<Bookshelf> Bookshelves { get; set; } = [];
+
     }
 }

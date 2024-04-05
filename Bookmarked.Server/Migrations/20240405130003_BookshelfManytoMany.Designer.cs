@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookmarked.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240405023306_Identity")]
-    partial class Identity
+    [Migration("20240405130003_BookshelfManytoMany")]
+    partial class BookshelfManytoMany
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -132,6 +132,21 @@ namespace Bookmarked.Server.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("Bookmarked.Server.Models.Bookshelf", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Bookshelves");
+                });
+
             modelBuilder.Entity("Bookmarked.Server.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -186,6 +201,20 @@ namespace Bookmarked.Server.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "badafe3c-3d86-482d-9490-ef7bba2def11",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "7b119e44-4221-471c-ab5b-103549164202",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -294,6 +323,25 @@ namespace Bookmarked.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Bookmarked.Server.Models.Bookshelf", b =>
+                {
+                    b.HasOne("Bookmarked.Server.Models.AppUser", "AppUser")
+                        .WithMany("Bookshelves")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bookmarked.Server.Models.Book", "Book")
+                        .WithMany("Bookshelves")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("Bookmarked.Server.Models.Comment", b =>
                 {
                     b.HasOne("Bookmarked.Server.Models.Book", "Book")
@@ -354,8 +402,15 @@ namespace Bookmarked.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Bookmarked.Server.Models.AppUser", b =>
+                {
+                    b.Navigation("Bookshelves");
+                });
+
             modelBuilder.Entity("Bookmarked.Server.Models.Book", b =>
                 {
+                    b.Navigation("Bookshelves");
+
                     b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618

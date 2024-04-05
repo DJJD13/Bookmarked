@@ -49,6 +49,11 @@ namespace Bookmarked.Server.Repository
             return await _context.Books.Include(c => c.Comments).FirstOrDefaultAsync(b => b.Id == id);
         }
 
+        public async Task<Book?> GetByIsbnAsync(string isbn)
+        {
+            return await _context.Books.FirstOrDefaultAsync(b => b.Isbn == isbn);
+        }
+
         public async Task<Book> CreateAsync(Book bookModel)
         {
             await _context.Books.AddAsync(bookModel);

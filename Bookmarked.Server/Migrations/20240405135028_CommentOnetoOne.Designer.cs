@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bookmarked.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240405024938_SeedRole")]
-    partial class SeedRole
+    [Migration("20240405135028_CommentOnetoOne")]
+    partial class CommentOnetoOne
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -132,6 +132,21 @@ namespace Bookmarked.Server.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("Bookmarked.Server.Models.Bookshelf", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppUserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Bookshelves");
+                });
+
             modelBuilder.Entity("Bookmarked.Server.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -139,6 +154,10 @@ namespace Bookmarked.Server.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AppUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("BookId")
                         .HasColumnType("int");
@@ -155,6 +174,8 @@ namespace Bookmarked.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("BookId");
 
@@ -190,13 +211,13 @@ namespace Bookmarked.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ad362f22-4d8a-4745-9ee0-d71364d46223",
+                            Id = "d4a0eb53-4721-4357-b39a-b5c1cbdd88ee",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c3da0ad3-fbf8-443b-8fc5-9f2fa07057ea",
+                            Id = "0fe135cf-3b22-499e-bd7f-ae859dd5d59c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -308,11 +329,38 @@ namespace Bookmarked.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Bookmarked.Server.Models.Bookshelf", b =>
+                {
+                    b.HasOne("Bookmarked.Server.Models.AppUser", "AppUser")
+                        .WithMany("Bookshelves")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bookmarked.Server.Models.Book", "Book")
+                        .WithMany("Bookshelves")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("Bookmarked.Server.Models.Comment", b =>
                 {
+                    b.HasOne("Bookmarked.Server.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Bookmarked.Server.Models.Book", "Book")
                         .WithMany("Comments")
                         .HasForeignKey("BookId");
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Book");
                 });
@@ -368,8 +416,15 @@ namespace Bookmarked.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Bookmarked.Server.Models.AppUser", b =>
+                {
+                    b.Navigation("Bookshelves");
+                });
+
             modelBuilder.Entity("Bookmarked.Server.Models.Book", b =>
                 {
+                    b.Navigation("Bookshelves");
+
                     b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
