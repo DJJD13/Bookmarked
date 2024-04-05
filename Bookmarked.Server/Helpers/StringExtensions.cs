@@ -2,12 +2,12 @@
 {
     public static class StringExtensions
     {
-        public static bool HasValue(this string str)
+        public static bool HasValue(this string? str)
         {
             return !string.IsNullOrEmpty(str);
         }
 
-        public static bool Contains(this string source, string toCheck, StringComparison comp)
+        public static bool Contains(this string? source, string toCheck, StringComparison comp)
         {
             return source?.IndexOf(toCheck, comp) >= 0;
         }

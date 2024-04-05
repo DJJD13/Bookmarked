@@ -14,24 +14,24 @@ namespace Bookmarked.Server.Repository
         {
             var books = _context.Books.Include(c => c.Comments).AsQueryable();
 
-            if (!string.IsNullOrEmpty(query.Title))
+            if (query.Title.HasValue())
             {
-                books = books.Where(b => b.Title.Contains(query.Title));
+                books = books.Where(b => b.Title.Contains(query.Title!));
             }
 
-            if (!string.IsNullOrEmpty(query.Author))
+            if (query.Author.HasValue())
             {
-                books = books.Where(b => b.Author.Contains(query.Author));
+                books = books.Where(b => b.Author.Contains(query.Author!));
             }
 
-            if (!string.IsNullOrEmpty(query.SortBy))
+            if (query.SortBy.HasValue())
             {
-                if (query.SortBy.Equals("Title", StringComparison.OrdinalIgnoreCase))
+                if (query.SortBy!.Equals("Title", StringComparison.OrdinalIgnoreCase))
                 {
                     books = query.IsDescending ? books.OrderByDescending(b => b.Title) : books.OrderBy(b => b.Title);
                 }
 
-                if (query.SortBy.Equals("Author", StringComparison.OrdinalIgnoreCase))
+                if (query.SortBy!.Equals("Author", StringComparison.OrdinalIgnoreCase))
                 {
                     books = query.IsDescending ? books.OrderByDescending(b => b.Author) : books.OrderBy(b => b.Author);
                 }
