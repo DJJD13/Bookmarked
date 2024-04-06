@@ -12,11 +12,13 @@ namespace Bookmarked.Server.Controllers
     public class BookshelfController(
         UserManager<AppUser> userManager,
         IBookRepository bookRepo,
-        IBookshelfRepository bookshelfRepo) : ControllerBase
+        IBookshelfRepository bookshelfRepo,
+        IISBNdbService isbndbService) : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager = userManager;
         private readonly IBookRepository _bookRepo = bookRepo;
         private readonly IBookshelfRepository _bookshelfRepo = bookshelfRepo;
+        private readonly IISBNdbService _isbndbService = isbndbService;
 
         [HttpGet]
         [Authorize]
@@ -41,7 +43,13 @@ namespace Bookmarked.Server.Controllers
 
             var book = await _bookRepo.GetByIsbnAsync(isbn);
 
-            if (book == null) return BadRequest("Book not found");
+            if (book == null)
+            {
+                book = await _isbndbService.FindBookByISBNAsync(isbn);
+                if (book == null) return BadRequest("Book was not found");
+
+                await _bookRepo.CreateAsync(book);
+            }
 
             var userBookshelf = await _bookshelfRepo.GetUserBookshelf(appUser);
 

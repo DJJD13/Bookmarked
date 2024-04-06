@@ -36,5 +36,21 @@ namespace Bookmarked.Server.Mappers
                 Pages = bookDto.Pages,
             };
         }
+
+        public static Book ToBookFromIsbnBook(this IsbnBook isbnBook)
+        {
+            return new Book
+            {
+                Title = isbnBook.title,
+                Author = isbnBook.authors[0],
+                Synopsis = isbnBook.synopsis,
+                DatePublished = DateTime.Parse(isbnBook.date_published),
+                Msrp = (decimal)isbnBook.msrp,
+                Isbn = isbnBook.isbn,
+                CoverImage = isbnBook.image,
+                Pages = isbnBook.pages,
+            };
+        }
+
     }
 }

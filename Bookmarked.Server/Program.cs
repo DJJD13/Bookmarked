@@ -93,6 +93,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IBookshelfRepository, BookshelfRepository>();
+builder.Services.AddScoped<IISBNdbService, ISBNdbService>();
 
 var app = builder.Build();
 
@@ -107,6 +108,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    //.WithOrigins("https://localhost:44351"))
+    .SetIsOriginAllowed(origin => true)
+);
 
 app.UseAuthentication();
 app.UseAuthorization();

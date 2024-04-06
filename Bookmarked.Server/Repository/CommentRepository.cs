@@ -1,5 +1,6 @@
 ﻿using Bookmarked.Server.Data;
 using Bookmarked.Server.Dtos.Comment;
+using Bookmarked.Server.Helpers;
 using Bookmarked.Server.Interfaces;
 using Bookmarked.Server.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,14 +10,26 @@ namespace Bookmarked.Server.Repository
     public class CommentRepository(ApplicationDbContext context) : ICommentRepository
     {
         private readonly ApplicationDbContext _context = context;
-        public async Task<List<Comment>> GetAllAsync()
+        public async Task<List<Comment>> GetAllAsync(CommentQueryObject queryObject)
         {
-            return await _context.Comments.ToListAsync();
+            var comments = _context.Comments.Include(a => a.AppUser).AsQueryable();
+
+            if (queryObject.Isbn.HasValue())
+            {
+                comments = comments.Where(b => b.Book.Isbn == queryObject.Isbn!);
+            }
+
+            if (queryObject.IsDescending)
+            {
+                comments = comments.OrderByDescending(c => c.CreatedOn);
+            }
+
+            return await comments.ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
         {
-            return await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            return await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Comment> CreateAsync(Comment commentModel)

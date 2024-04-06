@@ -1,22 +1,30 @@
 ﻿using Bookmarked.Server.Dtos.Comment;
+using Bookmarked.Server.Extensions;
+using Bookmarked.Server.Helpers;
 using Bookmarked.Server.Interfaces;
 using Bookmarked.Server.Mappers;
+using Bookmarked.Server.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookmarked.Server.Controllers
 {
     [Route("api/comment")]
     [ApiController]
-    public class CommentController(ICommentRepository commentRepo, IBookRepository bookRepo) : ControllerBase
+    public class CommentController(ICommentRepository commentRepo, IBookRepository bookRepo, UserManager<AppUser> userManager, IISBNdbService isbndbService) : ControllerBase
     {
+        private readonly UserManager<AppUser> _userManager = userManager;
         private readonly ICommentRepository _commentRepo = commentRepo;
         private readonly IBookRepository _bookRepo = bookRepo;
+        private readonly IISBNdbService _isbndbService = isbndbService;
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Authorize]
+        public async Task<IActionResult> GetAll([FromQuery] CommentQueryObject queryObject)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var comments = await _commentRepo.GetAllAsync();
+            var comments = await _commentRepo.GetAllAsync(queryObject);
             return Ok(comments.Select(c => c.ToCommentDto()));
         }
 
@@ -36,16 +44,26 @@ namespace Bookmarked.Server.Controllers
         }
 
         [HttpPost]
-        [Route("{bookId:int}")]
-        public async Task<IActionResult> Create([FromRoute] int bookId, [FromBody] CreateCommentRequestDto commentDto)
+        [Route("{isbn}")]
+        public async Task<IActionResult> Create([FromRoute] string isbn, [FromBody] CreateCommentRequestDto commentDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (!await _bookRepo.BookExists(bookId))
+            var book = await _bookRepo.GetByIsbnAsync(isbn);
+
+            if (book == null)
             {
-                return BadRequest("Book does not exist");
+                book = await _isbndbService.FindBookByISBNAsync(isbn);
+                if (book == null) return BadRequest("Book was not found");
+
+                await _bookRepo.CreateAsync(book);
             }
 
-            var commentModel = commentDto.ToCommentFromCreate(bookId);
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            if (appUser == null) return BadRequest("User not found");
+
+            var commentModel = commentDto.ToCommentFromCreate(book.Id);
+            commentModel.AppUserId = appUser.Id;
             await _commentRepo.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel.Id }, commentModel.ToCommentDto());
         }

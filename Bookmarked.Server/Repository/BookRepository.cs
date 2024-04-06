@@ -12,7 +12,8 @@ namespace Bookmarked.Server.Repository
         private readonly ApplicationDbContext _context = context;
         public async Task<List<Book>> GetAllAsync(QueryObject query)
         {
-            var books = _context.Books.Include(c => c.Comments).AsQueryable();
+            var books = _context.Books.Include(c => c.Comments)
+                .ThenInclude(a => a.AppUser).AsQueryable();
 
             if (query.Title.HasValue())
             {
@@ -46,7 +47,8 @@ namespace Bookmarked.Server.Repository
 
         public async Task<Book?> GetByIdAsync(int id)
         {
-            return await _context.Books.Include(c => c.Comments).FirstOrDefaultAsync(b => b.Id == id);
+            return await _context.Books.Include(c => c.Comments)
+                .ThenInclude(a => a.AppUser).FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task<Book?> GetByIsbnAsync(string isbn)
