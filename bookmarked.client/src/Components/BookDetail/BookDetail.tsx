@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { getBookByISBN } from "../../api";
 import RatioList from "../RatioList/RatioList";
 import Spinner from "../Spinner/Spinner";
+import BookComment from "../BookComment/BookComment";
 
 interface Props {}
 
@@ -69,7 +70,10 @@ const BookDetail: React.FC<Props> = (props: Props): JSX.Element => {
     }, [])
     return (<>
         {bookData ? (
-            <RatioList data={bookData} config={tableConfig} />    
+            <>
+                <RatioList data={bookData} config={tableConfig} />
+                <BookComment isbn={isbn} />
+            </>
         ): (
             <Spinner />
             ) 

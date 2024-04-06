@@ -2,24 +2,24 @@
 {
     public class IsbnBook
     {
-        public string publisher { get; set; }
-        public string synopsis { get; set; }
-        public string language { get; set; }
-        public string image { get; set; }
-        public string title_long { get; set; }
-        public string edition { get; set; }
-        public string dimensions { get; set; }
+        public string publisher { get; set; } = string.Empty;
+        public string synopsis { get; set; } = string.Empty;
+        public string language { get; set; } = string.Empty;
+        public string image { get; set; } = string.Empty;
+        public string title_long { get; set; } = string.Empty;
+        public string edition { get; set; } = string.Empty;
+        public string dimensions { get; set; } = string.Empty;
         public DimensionsStructured dimensions_structured { get; set; }
         public int pages { get; set; }
-        public string date_published { get; set; }
-        public List<string> authors { get; set; }
-        public string title { get; set; }
-        public string isbn13 { get; set; }
+        public string date_published { get; set; } = string.Empty;
+        public List<string> authors { get; set; } = [];
+        public string title { get; set; } = string.Empty;
+        public string isbn13 { get; set; } = string.Empty;
         public double msrp { get; set; }
-        public string binding { get; set; }
+        public string binding { get; set; } = string.Empty;
         public Related related { get; set; }
-        public string isbn { get; set; }
-        public string isbn10 { get; set; }
+        public string isbn { get; set; } = string.Empty;
+        public string isbn10 { get; set; } = string.Empty;
         public List<OtherIsbn> other_isbns { get; set; }
     }
 
@@ -68,6 +68,6 @@
     public class Width
     {
         public string unit { get; set; }
-        public int value { get; set; }
+        public double value { get; set; }
     }
 }

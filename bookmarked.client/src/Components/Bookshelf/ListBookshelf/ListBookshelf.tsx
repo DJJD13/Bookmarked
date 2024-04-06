@@ -1,8 +1,9 @@
 import { SyntheticEvent } from "react";
 import CardBookshelf from "../CardBookshelf/CardBookshelf";
+import { BookshelfGet } from "../../../Models/Bookshelf";
 
 interface Props {
-    bookshelfValues: string[];
+    bookshelfValues: BookshelfGet[];
     onBookshelfDelete: (e: SyntheticEvent) => void;
 }
 

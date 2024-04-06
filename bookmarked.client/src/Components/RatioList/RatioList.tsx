@@ -24,7 +24,7 @@ const RatioList: React.FC<Props> = ({ config, data }: Props): JSX.Element => {
             </li>
         )
     })
-    return <div className="bg-white shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 h-full">
+    return <div className="bg-white w-full shadow rounded-lg ml-4 mt-4 mb-4 p-4 sm:p-6 h-full">
         <ul className="divide-y divided-gray-200">{renderedRows}</ul>
 
     </div>;

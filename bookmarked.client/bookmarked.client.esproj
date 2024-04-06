@@ -20,6 +20,8 @@
     <Folder Include="src\Components\CardList\" />
     <Folder Include="src\Components\Hero\" />
     <Folder Include="src\Components\NavBar\" />
+    <Folder Include="src\Components\BookCommentList\" />
+    <Folder Include="src\Components\BookCommentListItem\" />
     <Folder Include="src\Components\Spinner\" />
     <Folder Include="src\Components\RatioList\" />
     <Folder Include="src\Components\SearchTitle\" />
@@ -27,6 +29,10 @@
     <Folder Include="src\Components\Sidebar\" />
     <Folder Include="src\Components\Tile\" />
     <Folder Include="src\Helpers\" />
+    <Folder Include="src\Models\" />
+    <Folder Include="src\Pages\LoginPage\" />
+    <Folder Include="src\Pages\RegisterPage\" />
+    <Folder Include="src\Services\" />
     <Folder Include="src\Pages\DesignPage\" />
     <Folder Include="src\Routes\" />
     <Folder Include="src\Pages\BookPage\" />
