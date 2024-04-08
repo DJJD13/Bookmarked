@@ -13,8 +13,11 @@ const NavBar: React.FC<Props> = (props: Props): JSX.Element => {
                         <img src={logo} height="50" width="200" alt="Logo" />
                     </Link>
                     <div className="hidden font-bold lg:flex">
-                        <Link to="/search" className="text-black hover:text-darkBlue">
+                        <Link to="/search" className="text-black hover:text-darkBlue mr-5">
                             Search
+                        </Link>
+                        <Link to="/bookshelf" className="text-black hover:text-darkBlue">
+                            My Bookshelf
                         </Link>
                     </div>
                 </div>

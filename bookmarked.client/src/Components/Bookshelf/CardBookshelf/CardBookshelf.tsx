@@ -9,8 +9,11 @@ interface Props {
 }
 
 const CardBookshelf: React.FC<Props> = ({ bookshelfValue, onBookshelfDelete }: Props): JSX.Element => {
-    return (<div className="flex flex-col w-full p-8 space-y-4 text-center rounded-lg shadow-lg md:w-1/3">
-        <Link to={`/book/${bookshelfValue.isbn}`} className="pt-6 text-xl font-bold">{bookshelfValue.title}</Link>
+    return (<div className="flex flex-col p-3 space-y-4 text-center rounded-xl shadow-lg md:w-1/3">
+        <Link to={`/book/${bookshelfValue.isbn}/book-details`}>
+            <img src={bookshelfValue.coverImage} alt="Book cover" className="h-100 w-75 object-cover rounded-t-xl" />
+        </Link>
+        <Link to={`/book/${bookshelfValue.isbn}/book-details`} className="pt-6 text-xl font-bold">{bookshelfValue.title}</Link>
         <DeleteBookshelf bookshelfValue={bookshelfValue.isbn} onBookshelfDelete={onBookshelfDelete} />
     </div>);
 }

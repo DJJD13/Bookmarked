@@ -9,6 +9,7 @@ import DesignPage from "../Pages/DesignPage/DesignPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
+import BookshelfPage from "../Pages/BookshelfPage/BookshelfPage";
 
 export const router = createBrowserRouter([
 	{
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
 			{ path: "login", element: <LoginPage /> },
 			{ path: "register", element: <RegisterPage /> },
 			{ path: "search", element: <ProtectedRoute><SearchPage /></ProtectedRoute> },
+			{ path: "bookshelf", element: <ProtectedRoute><BookshelfPage /></ProtectedRoute> },
 			{ path: "design-guide", element: <DesignPage /> },
 			{
 				path: "book/:isbn",

@@ -19,7 +19,7 @@ const ListBookshelf: React.FC<Props> = ({ bookshelfValues, onBookshelfDelete }: 
                     <>
                         {bookshelfValues.length > 0 ? (
                             bookshelfValues.map((bookshelfValue) => {
-                                return <CardBookshelf bookshelfValue={bookshelfValue} onBookshelfDelete={onBookshelfDelete} />;
+                                return <CardBookshelf key={bookshelfValue.isbn} bookshelfValue={bookshelfValue} onBookshelfDelete={onBookshelfDelete} />;
                             })
                         ) : (
                             <h3 className="mb-3 mt-3 text-xl font-semibold text-center md:text-xl">

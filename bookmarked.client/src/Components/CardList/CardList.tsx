@@ -10,7 +10,7 @@ interface Props {
 
 const CardList: React.FC<Props> = ({searchResults, onBookshelfCreate}: Props) : JSX.Element => {
     return <>
-        <h2>Count: {searchResults.total}</h2>
+        <h2 className="flex items-center justify-center font-bold">Count: {searchResults.total}</h2>
         <div className="p-1 flex flex-wrap items-center justify-center">
             {searchResults.books.length > 0 ? (
                 searchResults.books.map((book) => {

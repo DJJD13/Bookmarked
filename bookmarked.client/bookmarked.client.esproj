@@ -31,6 +31,7 @@
     <Folder Include="src\Helpers\" />
     <Folder Include="src\Models\" />
     <Folder Include="src\Pages\LoginPage\" />
+    <Folder Include="src\Pages\BookshelfPage\" />
     <Folder Include="src\Pages\RegisterPage\" />
     <Folder Include="src\Services\" />
     <Folder Include="src\Pages\DesignPage\" />
