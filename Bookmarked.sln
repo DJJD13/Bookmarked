@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarked.Server", "Bookma
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "bookmarked.client", "bookmarked.client\bookmarked.client.esproj", "{E424FEA8-DC2C-466B-B4F5-138E521DE729}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookmarked.Tests", "Bookmarked.Tests\Bookmarked.Tests.csproj", "{9288C38A-1748-470D-85A4-309DD33BF809}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{E424FEA8-DC2C-466B-B4F5-138E521DE729}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E424FEA8-DC2C-466B-B4F5-138E521DE729}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E424FEA8-DC2C-466B-B4F5-138E521DE729}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9288C38A-1748-470D-85A4-309DD33BF809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9288C38A-1748-470D-85A4-309DD33BF809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9288C38A-1748-470D-85A4-309DD33BF809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9288C38A-1748-470D-85A4-309DD33BF809}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

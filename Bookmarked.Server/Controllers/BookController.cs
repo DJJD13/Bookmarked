@@ -11,9 +11,8 @@ namespace Bookmarked.Server.Controllers
 {
     [Route("api/book")]
     [ApiController]
-    public class BookController(ApplicationDbContext context, IBookRepository bookRepo) : ControllerBase
+    public class BookController(IBookRepository bookRepo) : ControllerBase
     {
-        private readonly ApplicationDbContext _context = context;
         private readonly IBookRepository _bookRepo = bookRepo;
 
         [HttpGet]
@@ -22,7 +21,7 @@ namespace Bookmarked.Server.Controllers
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             var books = await _bookRepo.GetAllAsync(query);
-            var booksDto = books.Select(b => b.ToBookDto());
+            var booksDto = books.Select(b => b.ToBookDto()).ToList();
 
             return Ok(booksDto);
         }
