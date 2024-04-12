@@ -25,10 +25,11 @@ namespace Bookmarked.Server.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             var comments = await _commentRepo.GetAllAsync(queryObject);
-            return Ok(comments.Select(c => c.ToCommentDto()));
+            return Ok(comments.Select(c => c.ToCommentDto()).ToList());
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -44,6 +45,7 @@ namespace Bookmarked.Server.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("{isbn}")]
         public async Task<IActionResult> Create([FromRoute] string isbn, [FromBody] CreateCommentRequestDto commentDto)
         {
@@ -69,6 +71,7 @@ namespace Bookmarked.Server.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentRequestDto commentDto)
         {
@@ -84,6 +87,7 @@ namespace Bookmarked.Server.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

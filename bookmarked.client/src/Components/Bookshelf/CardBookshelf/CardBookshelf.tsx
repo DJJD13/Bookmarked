@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CardBookshelf: React.FC<Props> = ({ bookshelfValue, onBookshelfDelete }: Props): JSX.Element => {
-    return (<div className="flex flex-col w-72 p-8 space-y-4 text-center rounded-lg shadow-lg md:w-1/3">
+    return (<div className="flex flex-col w-72 bg-white shadow-md rounded-xl p-5 duration-500 hover:scale-105 hover:shadow-xl m-5">
         <Link to={`/book/${bookshelfValue.isbn}/book-details`}>
             <img src={bookshelfValue.coverImage} alt="Book cover" className="h-100 w-75 object-cover rounded-t-xl" />
         </Link>
