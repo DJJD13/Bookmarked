@@ -13,7 +13,7 @@ namespace Bookmarked.Server.Mappers
                 Title = commentModel.Title,
                 Content = commentModel.Content,
                 CreatedOn = commentModel.CreatedOn,
-                CreatedBy = commentModel.AppUser.UserName,
+                CreatedBy = commentModel.AppUser?.UserName ?? "Anon",
                 BookId = commentModel.BookId
             };
         }

@@ -18,7 +18,6 @@ const BookPage: React.FC<Props> = (): JSX.Element => {
 				console.log(result);
 			} else if (typeof result?.data === "object") {
 				setBookDetails(result?.data.book);
-				console.log(bookDetails);
 			}
 		};
 		getBookInit();
