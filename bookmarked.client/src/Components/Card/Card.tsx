@@ -11,7 +11,7 @@ interface Props {
 const Card: React.FC<Props> = ({ id, searchResult, onBookshelfCreate }: Props) : JSX.Element => {
     return (
         <div className="flex flex-col w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl m-5">
-            <Link to={`/book/${searchResult.isbn}/book-details`}>
+            <Link to={`/book/${searchResult.isbn}`}>
                 <img src={searchResult.image} alt="Book cover" className="h-100 w-75 object-cover rounded-t-xl" />
             </Link>
             <div className="px-4 py-3 w-75">

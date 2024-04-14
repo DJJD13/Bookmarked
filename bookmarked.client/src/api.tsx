@@ -1,4 +1,5 @@
 import axios from "axios"
+import {handleError} from "./Helpers/ErrorHandler.tsx";
 
 const headers = {
     "Content-Type": 'application/json',
@@ -7,34 +8,30 @@ const headers = {
 
 export const getBookByISBN = async (query: string) => {
     try {
-        const data = await axios.get<ISBNBookResponse>(
-            `https://api2.isbndb.com/book/${query}`, { headers }
+        return await axios.get<ISBNBookResponse>(
+            `https://api2.isbndb.com/book/${query}`, {headers}
         );
-        return data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.log("error message ", error.message);
-            return error.message;
-        } else {
-            console.log("Unexpected error: ", error);
-            return "An unexpected Error has occurred";
-        }
-    }
+        handleError(error);
+    } 
 }
 
 export const searchByTitle = async (query: string) => {
     try {
-        const data = await axios.get<BookTitleSearch>(
-            `https://api2.isbndb.com/books/${query}?page=1&pageSize=20`, { headers }
+        return await axios.get<BookTitleSearch>(
+            `https://api2.isbndb.com/books/${query}?page=1&pageSize=20`, {headers}
         );
-        return data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.log("error message ", error.message);
-            return error.message;
-        } else {
-            console.log("Unexpected error: ", error);
-            return "An unexpected Error has occurred";
-        }
+       handleError(error); 
+    }
+}
+
+export const getAuthorDetails = async (query: string) => {
+    try {
+        return await axios.get<AuthorBookDetails>(
+            `https://api2.isbndb.com/author/${query}?page=1&pageSize=15`, {headers}
+        );
+    } catch (error) {
+        handleError(error);
     }
 }

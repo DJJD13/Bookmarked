@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getBookByISBN } from "../../api";
-import Sidebar from "../../Components/Sidebar/Sidebar";
 import BookDashboard from "../../Components/BookDashboard/BookDashboard";
 import Tile from "../../Components/Tile/Tile";
+import {formatAuthorName} from "../../Helpers/StringHelpers.tsx";
 
 interface Props {}
 
-const BookPage: React.FC<Props> = (props: Props): JSX.Element => {
+const BookPage: React.FC<Props> = (): JSX.Element => {
 	const { isbn } = useParams();
 	const [bookDetails, setBookDetails] = useState<Book | null>(null);
 
@@ -16,8 +16,8 @@ const BookPage: React.FC<Props> = (props: Props): JSX.Element => {
 			const result = await getBookByISBN(isbn!);
 			if (typeof result === "string") {
 				console.log(result);
-			} else if (typeof result.data === "object") {
-				setBookDetails(result.data.book);
+			} else if (typeof result?.data === "object") {
+				setBookDetails(result?.data.book);
 				console.log(bookDetails);
 			}
 		};
@@ -27,15 +27,15 @@ const BookPage: React.FC<Props> = (props: Props): JSX.Element => {
 		<>
 			{bookDetails ? (
 				<div className="w-full relative flex ct-docs-disable-sidebar-content overflow-x-hidden">
-					<Sidebar />
-					<BookDashboard isbn={isbn!}>
+					<img src={bookDetails.image} alt="Book cover" className="max-w-80 max-h-80 m-5" />
+					<BookDashboard book={bookDetails}>
 						<Tile title="Book Title" subtitle={bookDetails.title} />
 						<Tile
 							title="Author"
 							subtitle={
 								bookDetails.authors[0]
-									? bookDetails.authors[0]
-									: "[Placeholder]"
+									? formatAuthorName(bookDetails.authors[0])
+									: "[Unknown]"
 							}
 						/>
 						<Tile

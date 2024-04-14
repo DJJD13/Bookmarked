@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import { getBookByISBN } from "../../api";
 import RatioList from "../RatioList/RatioList";
-import Spinner from "../Spinner/Spinner";
 import BookComment from "../BookComment/BookComment";
+import {formatAuthorName} from "../../Helpers/StringHelpers.tsx";
 
-interface Props {}
+interface Props {
+    book: Book;
+}
 
 const tableConfig = [
     {
@@ -14,7 +13,7 @@ const tableConfig = [
     },
     {
         label: "Author",
-        render: (book: Book) => book.authors[0]
+        render: (book: Book) => formatAuthorName(book.authors[0])
     },
     {
         label: "Title Long",
@@ -54,30 +53,10 @@ const tableConfig = [
     }
 ];
 
-const BookDetail: React.FC<Props> = (props: Props): JSX.Element => {
-    const isbn = useOutletContext<string>();
-    const [bookData, setBookData] = useState<Book>();
-    useEffect(() => {
-        const getBookDetails = async () => {
-            const result = await getBookByISBN(isbn!);
-            if (typeof result === "string") {
-                console.log(result);
-            } else if (typeof result.data === "object") {
-                setBookData(result.data.book);
-            }
-        };
-        getBookDetails();
-    }, [])
+const BookDetail: React.FC<Props> = ({ book }: Props): JSX.Element => {
     return (<>
-        {bookData ? (
-            <>
-                <RatioList data={bookData} config={tableConfig} />
-                <BookComment isbn={isbn} />
-            </>
-        ): (
-            <Spinner />
-            ) 
-        }
+        <RatioList data={book} config={tableConfig} />
+        <BookComment isbn={book.isbn} />
     </>);
 };
 

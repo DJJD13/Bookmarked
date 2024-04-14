@@ -42,3 +42,8 @@ interface BookTitleSearch {
     total: number;
     books: Book[];
 }
+
+interface AuthorBookDetails {
+    author: string;
+    books: Book[];
+}

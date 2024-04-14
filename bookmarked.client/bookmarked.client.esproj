@@ -28,7 +28,6 @@
     <Folder Include="src\Components\Search\" />
     <Folder Include="src\Components\Sidebar\" />
     <Folder Include="src\Components\Tile\" />
-    <Folder Include="src\Helpers\" />
     <Folder Include="src\Models\" />
     <Folder Include="src\Pages\LoginPage\" />
     <Folder Include="src\Pages\BookshelfPage\" />

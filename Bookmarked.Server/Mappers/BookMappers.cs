@@ -46,7 +46,7 @@ namespace Bookmarked.Server.Mappers
                 Synopsis = isbnBook.synopsis,
                 DatePublished = DateTime.Parse(isbnBook.date_published),
                 Msrp = (decimal)isbnBook.msrp,
-                Isbn = isbnBook.isbn,
+                Isbn = isbnBook.isbn13,
                 CoverImage = isbnBook.image,
                 Pages = isbnBook.pages,
             };

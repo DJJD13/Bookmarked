@@ -10,10 +10,10 @@ interface Props {
 
 const CardBookshelf: React.FC<Props> = ({ bookshelfValue, onBookshelfDelete }: Props): JSX.Element => {
     return (<div className="flex flex-col w-72 bg-white shadow-md rounded-xl p-5 duration-500 hover:scale-105 hover:shadow-xl m-5">
-        <Link to={`/book/${bookshelfValue.isbn}/book-details`}>
+        <Link to={`/book/${bookshelfValue.isbn}`}>
             <img src={bookshelfValue.coverImage} alt="Book cover" className="h-100 w-75 object-cover rounded-t-xl" />
         </Link>
-        <Link to={`/book/${bookshelfValue.isbn}/book-details`} className="pt-6 text-xl font-bold">{bookshelfValue.title}</Link>
+        <Link to={`/book/${bookshelfValue.isbn}`} className="pt-6 text-xl font-bold">{bookshelfValue.title}</Link>
         <DeleteBookshelf bookshelfValue={bookshelfValue.isbn} onBookshelfDelete={onBookshelfDelete} />
     </div>);
 }

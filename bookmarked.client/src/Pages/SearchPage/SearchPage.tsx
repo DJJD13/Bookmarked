@@ -38,8 +38,8 @@ const SearchPage: React.FC<Props> = (): JSX.Element => {
         const result = await getBookByISBN(searchIsbn);
         if (typeof result === "string") {
             setServerError(result);
-        } else if (typeof result.data === "object") {
-            setSearchIsbnResult(result.data.book);
+        } else if (typeof result?.data === "object") {
+            setSearchIsbnResult(result?.data.book);
         }
     }
 
@@ -48,8 +48,8 @@ const SearchPage: React.FC<Props> = (): JSX.Element => {
         const result = await searchByTitle(searchTitle);
         if (typeof result === "string") {
             setServerError(result);
-        } else if (typeof result.data === "object") {
-            setSearchTitleResult(result.data);
+        } else if (typeof result?.data === "object") {
+            setSearchTitleResult(result?.data);
         }
     }
 

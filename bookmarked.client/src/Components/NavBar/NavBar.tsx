@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from "./logo-placeholder.png";
 import { useAuth } from "../../Context/useAuth";
-interface Props { }
 
-const NavBar: React.FC<Props> = (props: Props): JSX.Element => {
+const NavBar: React.FC = (): JSX.Element => {
     const { isLoggedIn, user, logout } = useAuth();
     return (
         <nav className="relative container mx-auto p-6">
@@ -16,9 +15,11 @@ const NavBar: React.FC<Props> = (props: Props): JSX.Element => {
                         <Link to="/search" className="text-black hover:text-darkBlue mr-5">
                             Search
                         </Link>
-                        <Link to="/bookshelf" className="text-black hover:text-darkBlue">
-                            My Bookshelf
-                        </Link>
+                        {isLoggedIn() ? (
+                            <Link to="/bookshelf" className="text-black hover:text-darkBlue">
+                                My Bookshelf
+                            </Link>
+                        ) : "" }
                     </div>
                 </div>
                 {isLoggedIn() ? (

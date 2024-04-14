@@ -3,8 +3,6 @@ import App from "../App";
 import HomePage from "../Pages/HomePage/HomePage";
 import SearchPage from "../Pages/SearchPage/SearchPage";
 import BookPage from "../Pages/BookPage/BookPage";
-import BookDetail from "../Components/BookDetail/BookDetail";
-import AuthorDetail from "../Components/AuthorDetail/AuthorDetail";
 import DesignPage from "../Pages/DesignPage/DesignPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
@@ -22,14 +20,7 @@ export const router = createBrowserRouter([
 			{ path: "search", element: <ProtectedRoute><SearchPage /></ProtectedRoute> },
 			{ path: "bookshelf", element: <ProtectedRoute><BookshelfPage /></ProtectedRoute> },
 			{ path: "design-guide", element: <DesignPage /> },
-			{
-				path: "book/:isbn",
-				element: <ProtectedRoute><BookPage /></ProtectedRoute>,
-				children: [
-					{ path: "book-details", element: <BookDetail /> },
-					{ path: "author-details", element: <AuthorDetail /> },
-				],
-			},
+			{ path: "book/:isbn", element: <ProtectedRoute><BookPage /></ProtectedRoute> },
 		],
 	},
 ]);
