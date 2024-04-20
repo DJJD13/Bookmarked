@@ -2,16 +2,15 @@ export type BookshelfGet = {
     id: number;
     isbn: string;
     title: string;
-    author: string;
-    price: number;
-    pages: number;
-    synposis: string;
-    msrp: number;
-    datePublished: string;
     coverImage: string;
-    comments: any;
+    readingStatus: number;
 }
 
 export type BookshelfPost = {
     isbn: string;
+}
+
+export type BookshelfPut = {
+    isbn: string;
+    readingStatus: number;
 }

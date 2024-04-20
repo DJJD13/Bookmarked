@@ -3,6 +3,8 @@ import DeleteBookshelf from "../DeleteBookshelf/DeleteBookshelf";
 import { Link } from "react-router-dom";
 import { BookshelfGet } from "../../../Models/Bookshelf";
 import ReadingStatus from "../../ReadingStatus/ReadingStatus.tsx";
+import {bookshelfUpdateStatusAPI} from "../../../Services/BookshelfService.tsx";
+import { toast } from "react-toastify";
 
 interface Props {
     bookshelfValue: BookshelfGet;
@@ -10,11 +12,17 @@ interface Props {
 }
 
 const CardBookshelf: React.FC<Props> = ({ bookshelfValue, onBookshelfDelete }: Props): JSX.Element => {
-    const [readingStatus, setReadingStatus] = useState<number>(0);
+    const [readingStatus, setReadingStatus] = useState<number>(bookshelfValue.readingStatus);
     
     const handleReadingStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         let readingStatusNum = parseInt(e.target.value);
-        setReadingStatus(readingStatusNum);
+        bookshelfUpdateStatusAPI(bookshelfValue.isbn, readingStatusNum)
+            .then((res) => {
+                if (res?.status == 200) {
+                    toast.success(`Reading Status for ${bookshelfValue.title} updated!`);
+                    setReadingStatus(readingStatusNum);
+                }
+            }).catch(() => toast.warning("Could not update reading status"))
     }
     
     return (<div className="flex flex-col items-center w-72 bg-white shadow-md rounded-xl p-5 duration-500 hover:scale-105 hover:shadow-xl m-5">

@@ -4,8 +4,9 @@ namespace Bookmarked.Server.Interfaces
 {
     public interface IBookshelfRepository
     {
-        Task<List<Book>> GetUserBookshelf(AppUser user);
+        Task<List<Bookshelf>> GetUserBookshelf(AppUser user);
         Task<Bookshelf> CreateAsync(Bookshelf bookshelf);
+        Task<Bookshelf?> UpdateStatusAsync(AppUser appUser, string isbn, int status);
         Task<Bookshelf?> DeleteBookshelf(AppUser appUser, string isbn);
     }
 }

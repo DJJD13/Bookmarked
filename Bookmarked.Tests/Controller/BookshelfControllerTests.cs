@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Bookmarked.Server.Controllers;
+using Bookmarked.Server.Dtos.Book;
 using Bookmarked.Server.Interfaces;
 using Bookmarked.Server.Models;
 using Microsoft.AspNetCore.Http;
@@ -64,7 +65,7 @@ public class BookshelfControllerTests
     public async void GetUserBookshelf_ValidUser_ReturnsOkResponse()
     {
         // Arrange
-        var userBookshelf = new List<Book>();
+        var userBookshelf = new List<Bookshelf>();
         var testUser = new AppUser { UserName = "testuser" };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookshelfRepo.Setup(repo => repo.GetUserBookshelf(It.IsAny<AppUser>())).ReturnsAsync(userBookshelf);
@@ -78,10 +79,10 @@ public class BookshelfControllerTests
     }
 
     [Fact]
-    public async void GetUserBookshelf_ValidUser_ResponseReturnsListOfBooks()
+    public async void GetUserBookshelf_ValidUser_ResponseReturnsListOfBookshelfDtos()
     {
         // Arrange
-        var userBookshelf = new List<Book> { new(), new() };
+        var userBookshelf = new List<Bookshelf> { new() { Book = new Book() }, new() { Book = new Book() } };
         var testUser = new AppUser { UserName = "testuser" };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookshelfRepo.Setup(repo => repo.GetUserBookshelf(It.IsAny<AppUser>())).ReturnsAsync(userBookshelf);
@@ -92,7 +93,7 @@ public class BookshelfControllerTests
         // Assert
         Assert.NotNull(result);
         var response = Assert.IsType<OkObjectResult>(result);
-        var books = Assert.IsType<List<Book>>(response.Value);
+        var books = Assert.IsType<List<BookshelfItemDto>>(response.Value);
         
         Assert.Equal(2, books.Count);
     }
@@ -134,7 +135,7 @@ public class BookshelfControllerTests
         // Arrange
         var testUser = new AppUser { UserName = "testuser" };
         var testBook = new Book();
-        var testBookList = new List<Book> { new(){ Isbn = "123"} };
+        var testBookList = new List<Bookshelf> { new(){ Book = new Book { Isbn = "123" }} };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookRepo.Setup(repo => repo.GetByIsbnAsync(It.IsAny<string>())).ReturnsAsync(testBook);
         _mockBookshelfRepo.Setup(repo => repo.GetUserBookshelf(It.IsAny<AppUser>())).ReturnsAsync(testBookList);
@@ -152,7 +153,7 @@ public class BookshelfControllerTests
         // Arrange
         var testUser = new AppUser { UserName = "testuser" };
         var testBook = new Book();
-        var testBookList = new List<Book> { new(){ Isbn = "123"} };
+        var testBookList = new List<Bookshelf> { new(){ Book = new Book { Isbn = "123" }} };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookRepo.Setup(repo => repo.GetByIsbnAsync(It.IsAny<string>())).ReturnsAsync(testBook);
         _mockBookshelfRepo.Setup(repo => repo.GetUserBookshelf(It.IsAny<AppUser>())).ReturnsAsync(testBookList);
@@ -183,7 +184,10 @@ public class BookshelfControllerTests
     {
         // Arrange
         var testUser = new AppUser { UserName = "testuser" };
-        var testBookshelf = new List<Book> { new() { Isbn = "123" }, new() { Isbn = "432" } };
+        var testBookshelf = new List<Bookshelf>
+        {
+            new() { Book = new Book { Isbn = "123" } }, new() { Book = new Book { Isbn = "432" } }
+        };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookshelfRepo.Setup(repo => repo.GetUserBookshelf(It.IsAny<AppUser>())).ReturnsAsync(testBookshelf);
         
@@ -200,7 +204,10 @@ public class BookshelfControllerTests
     {
         // Arrange
         var testUser = new AppUser { UserName = "testuser" };
-        var testBookshelf = new List<Book> { new() { Isbn = "123" }, new() { Isbn = "432" } };
+        var testBookshelf = new List<Bookshelf>
+        {
+            new() { Book = new Book { Isbn = "123" } }, new() { Book = new Book { Isbn = "432" } }
+        };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookshelfRepo.Setup(repo => repo.GetUserBookshelf(It.IsAny<AppUser>())).ReturnsAsync(testBookshelf);
         

@@ -7,7 +7,7 @@ namespace Bookmarked.Server.Mappers
     {
         public static BookDto ToBookDto(this Book bookModel)
         {
-            return new BookDto()
+            return new BookDto
             {
                 Id = bookModel.Id,
                 Title = bookModel.Title,
@@ -21,7 +21,7 @@ namespace Bookmarked.Server.Mappers
                 Comments = bookModel.Comments.Select(c => c.ToCommentDto()).ToList()
             };
         }
-
+        
         public static Book ToBookFromCreateDto(this CreateBookRequestDto bookDto)
         {
             return new Book

@@ -1,5 +1,6 @@
 ﻿using Bookmarked.Server.Extensions;
 using Bookmarked.Server.Interfaces;
+using Bookmarked.Server.Mappers;
 using Bookmarked.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +31,7 @@ namespace Bookmarked.Server.Controllers
 
             var userBookshelf = await _bookshelfRepo.GetUserBookshelf(appUser);
 
-            return Ok(userBookshelf);
+            return Ok(userBookshelf.Select(book => book.ToBookshelfItemDto()).ToList());
         }
 
         [HttpPost]
@@ -53,17 +54,37 @@ namespace Bookmarked.Server.Controllers
 
             var userBookshelf = await _bookshelfRepo.GetUserBookshelf(appUser);
 
-            if (userBookshelf.Any(e => e.Isbn == isbn)) return BadRequest("Cannot add same book to bookshelf");
+            if (userBookshelf.Any(e => e.Book.Isbn == isbn)) return BadRequest("Cannot add same book to bookshelf");
 
             var bookshelfModel = new Bookshelf
             {
                 AppUserId = appUser.Id,
-                BookId = book.Id
+                BookId = book.Id,
+                ReadingStatus = 0
             };
 
             await _bookshelfRepo.CreateAsync(bookshelfModel);
 
             return bookshelfModel != null ? Created() : StatusCode(500, "Could not create bookshelf");
+        }
+
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> UpdateReadingStatus(string isbn, int status)
+        {
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            if (appUser == null) return BadRequest("User not found");
+
+            var userBookshelf = await _bookshelfRepo.GetUserBookshelf(appUser);
+
+            var filteredBook = userBookshelf.Where(b => b.Book.Isbn == isbn).ToList();
+
+            if (filteredBook.Count != 1) return NotFound("Book was not found in your bookshelf");
+
+            await _bookshelfRepo.UpdateStatusAsync(appUser, isbn, status);
+
+            return Ok(filteredBook.First().ToBookFromBookshelf().ToBookDto());
         }
 
         [HttpDelete]
@@ -76,7 +97,7 @@ namespace Bookmarked.Server.Controllers
 
             var userBookshelf = await _bookshelfRepo.GetUserBookshelf(appUser);
 
-            var filteredBook = userBookshelf.Where(b => b.Isbn == isbn).ToList();
+            var filteredBook = userBookshelf.Where(b => b.Book.Isbn == isbn).ToList();
 
             if (filteredBook.Count == 1)
             {

@@ -8,21 +8,12 @@ namespace Bookmarked.Server.Repository
     public class BookshelfRepository(ApplicationDbContext context) : IBookshelfRepository
     {
         private readonly ApplicationDbContext _context = context;
-        public async Task<List<Book>> GetUserBookshelf(AppUser user)
+        public async Task<List<Bookshelf>> GetUserBookshelf(AppUser user)
         {
-            return await _context.Bookshelves.Where(u => u.AppUserId == user.Id)
-                .Select(book => new Book
-                {
-                    Id = book.BookId,
-                    Title = book.Book.Title,
-                    Author = book.Book.Author,
-                    Synopsis = book.Book.Synopsis,
-                    DatePublished = book.Book.DatePublished,
-                    Isbn = book.Book.Isbn,
-                    CoverImage = book.Book.CoverImage,
-                    Msrp = book.Book.Msrp,
-                    Pages = book.Book.Pages
-                }).ToListAsync();
+            return await _context.Bookshelves.Include(bookshelf => bookshelf.Book)
+                .ThenInclude(b => b.Comments)
+                .Where(u => u.AppUserId == user.Id)
+                .ToListAsync();
         }
 
         public async Task<Bookshelf> CreateAsync(Bookshelf bookshelf)
@@ -30,6 +21,21 @@ namespace Bookmarked.Server.Repository
             await _context.Bookshelves.AddAsync(bookshelf);
             await _context.SaveChangesAsync();
             return bookshelf;
+        }
+
+        public async Task<Bookshelf?> UpdateStatusAsync(AppUser appUser, string isbn, int status)
+        {
+            var existingBookshelf = await _context.Bookshelves.FirstOrDefaultAsync(bookshelf =>
+                bookshelf.AppUserId == appUser.Id && bookshelf.Book.Isbn == isbn);
+
+            if (existingBookshelf == null)
+            {
+                return null;
+            }
+
+            existingBookshelf.ReadingStatus = status;
+            await _context.SaveChangesAsync();
+            return existingBookshelf;
         }
 
         public async Task<Bookshelf?> DeleteBookshelf(AppUser appUser, string isbn)

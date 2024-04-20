@@ -18,7 +18,7 @@ const BookshelfPage: React.FC<Props> = (): JSX.Element => {
             if (res?.data) {
                 setBookshelfValues(res?.data);
             }
-        }).catch((e) => toast.warning("Could not get bookshelf books!"))
+        }).catch(() => toast.warning("Could not get bookshelf books!"))
     };
 
     const onBookshelfDelete = (e: any) => {
@@ -28,7 +28,7 @@ const BookshelfPage: React.FC<Props> = (): JSX.Element => {
                 toast.success("Book removed from bookshelf");
                 getBookshelf();
             }
-        }).catch((e) => toast.warning("Could not remove book from bookshelf"));
+        }).catch(() => toast.warning("Could not remove book from bookshelf"));
     }
 
     return (

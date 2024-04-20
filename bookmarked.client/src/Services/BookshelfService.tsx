@@ -1,6 +1,6 @@
 import axios from "axios";
 import {handleError} from "../Helpers/ErrorHandler";
-import {BookshelfGet, BookshelfPost} from "../Models/Bookshelf";
+import {BookshelfGet, BookshelfPost, BookshelfPut} from "../Models/Bookshelf";
 
 const api = "https://localhost:7170/api/bookshelf/";
 
@@ -27,3 +27,11 @@ export const bookshelfGetAPI = async () => {
         handleError(error);
     }
 };
+
+export const bookshelfUpdateStatusAPI = async (isbn: string, status: number) => {
+    try {
+        return await axios.put<BookshelfPut>(api + `?isbn=${isbn}&status=${status}`);
+    } catch (error) {
+        handleError(error);
+    }
+}
