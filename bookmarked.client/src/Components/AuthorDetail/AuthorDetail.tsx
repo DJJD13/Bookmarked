@@ -1,5 +1,6 @@
 import {useEffect, useState } from "react";
 import {getAuthorDetails} from "../../api.tsx";
+import {handleError} from "../../Helpers/ErrorHandler.tsx";
 
 interface Props {
 	author: string;
@@ -11,9 +12,8 @@ const AuthorDetail: React.FC<Props> = ({ author }: Props): JSX.Element => {
 	useEffect(() => {
 		const getAuthorBooks = async () => {
 			const result = await getAuthorDetails(author);
-			console.log(result);
 			if (typeof result === "string") {
-				console.log(result);
+				handleError(result);
 			} else if (typeof result?.data === "object") {
 				setAuthorBooks(result?.data.books);
 			}
