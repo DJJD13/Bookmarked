@@ -41,9 +41,9 @@ const BookComment: React.FC<Props> = ({ isbn }: Props): JSX.Element => {
         })
     }
     return (
-        <div className="flex flex-col">
-            {loading ? <Spinner /> : <BookCommentList comments={comments!} /> }
+        <div className="flex flex-col max-w-80">
             <BookCommentForm isbn={isbn} handleComment={handleComment} />
+            {loading ? <Spinner /> : <BookCommentList comments={comments!} /> }
         </div>
 
     );

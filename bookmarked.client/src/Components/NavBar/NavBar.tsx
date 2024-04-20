@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import logo from "./logo-placeholder.png";
 import { useAuth } from "../../Context/useAuth";
+import { GiBookshelf } from "react-icons/gi";
+import { FaSearch } from "react-icons/fa";
+import { Tb123 } from "react-icons/tb";
 
 const NavBar: React.FC = (): JSX.Element => {
     const { isLoggedIn, user, logout } = useAuth();
@@ -12,13 +15,18 @@ const NavBar: React.FC = (): JSX.Element => {
                         <img src={logo} height="50" width="200" alt="Logo" />
                     </Link>
                     <div className="hidden font-bold lg:flex">
-                        <Link to="/search" className="text-black hover:text-darkBlue mr-5">
-                            Search
+                        <Link to="/search" className="flex items-center hover:text-darkBlue mr-5">
+                            <FaSearch className={"mr-1"} /> <span>Search</span>
                         </Link>
                         {isLoggedIn() ? (
-                            <Link to="/bookshelf" className="text-black hover:text-darkBlue">
-                                My Bookshelf
-                            </Link>
+                            <>
+                                <Link to="add-isbn" className={"flex items-center text-black hover:text-darkBlue mr-5"}>
+                                    <Tb123 className={"mr-1"} /> <span>Add via ISBN</span>
+                                </Link>
+                                <Link to="/bookshelf" className="flex items-center hover:text-darkBlue">
+                                    <GiBookshelf className={"mr-1"} /> <span>My Bookshelf</span>
+                                </Link>
+                            </>
                         ) : "" }
                     </div>
                 </div>

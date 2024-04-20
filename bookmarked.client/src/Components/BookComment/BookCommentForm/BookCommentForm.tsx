@@ -12,16 +12,16 @@ type CommentFormInputs = {
     content: string;
 }
 
-const valiation = Yup.object().shape({
+const validation = Yup.object().shape({
     title: Yup.string().required("A title is required"),
     content: Yup.string().required("Some content is required"),
 })
 
-const BookCommentForm: React.FC<Props> = ({ isbn, handleComment }: Props): JSX.Element => {
-    const { register, handleSubmit, formState: { errors } } = useForm<CommentFormInputs>({ resolver: yupResolver(valiation) });
+const BookCommentForm: React.FC<Props> = ({ handleComment }: Props): JSX.Element => {
+    const { register, handleSubmit, formState: { errors } } = useForm<CommentFormInputs>({ resolver: yupResolver(validation) });
 
     return (
-        <form className="mt-4 ml-4" onSubmit={handleSubmit(handleComment)}>
+        <form className="my-4 ml-4" onSubmit={handleSubmit(handleComment)}>
             <input
                 type="text"
                 id="title"

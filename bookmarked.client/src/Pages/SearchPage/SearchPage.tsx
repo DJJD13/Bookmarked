@@ -1,18 +1,16 @@
 import { SyntheticEvent, useState } from "react";
-import Search from "../../Components/Search/Search";
 import SearchTitle from "../../Components/SearchTitle/SearchTitle";
 import CardList from "../../Components/CardList/CardList";
-import { getBookByISBN, searchByTitle } from "../../api";
+import { searchByTitle } from "../../api";
 import { bookshelfAddAPI } from "../../Services/BookshelfService";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface Props {
 }
 
 const SearchPage: React.FC<Props> = (): JSX.Element => {
-    const [searchIsbn, setSearchIsbn] = useState<string>("");
     const [searchTitle, setSearchTitle] = useState<string>("");
-    const [searchIsbnResult, setSearchIsbnResult] = useState<Book>();
     const [searchTitleResult, setSearchTitleResult] = useState<BookTitleSearch>({ total: 0, books: [] });
     const [serverError, setServerError] = useState<string>("");
 
@@ -22,25 +20,11 @@ const SearchPage: React.FC<Props> = (): JSX.Element => {
             if (res?.status == 204) {
                 toast.success("Book added to Bookshelf!");
             }
-        }).catch((e) => toast.warning("Could not add book to bookshelf!"));
+        }).catch(() => toast.warning("Could not add book to bookshelf!"));
     }
 
-    const handleSearchIsbnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchIsbn(e.target.value);
-    }
-    
     const handleSearchTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTitle(e.target.value);
-    }
-
-    const onSearchIsbnSubmit = async (e: SyntheticEvent) => {
-        e.preventDefault();
-        const result = await getBookByISBN(searchIsbn);
-        if (typeof result === "string") {
-            setServerError(result);
-        } else if (typeof result?.data === "object") {
-            setSearchIsbnResult(result?.data.book);
-        }
     }
 
     const onSearchTitleSubmit = async (e: SyntheticEvent) => {
@@ -55,10 +39,18 @@ const SearchPage: React.FC<Props> = (): JSX.Element => {
 
     return (
         <div className="App">
-            <Search onSearchIsbnSubmit={onSearchIsbnSubmit} searchIsbn={searchIsbn} handleSearchIsbnChange={handleSearchIsbnChange} />
             <SearchTitle onSearchTitleSubmit={onSearchTitleSubmit} searchTitle={searchTitle} handleSearchTitleChange={handleSearchTitleChange} />
+            <div className="flex flex-col items-center justify-center mb-3">
+                <p className="text-gray-500 mb-2">Know your ISBN?</p>
+                <Link to="/add-isbn">
+                    <button
+                        className="inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-lightGreen rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                        Add it here!
+                    </button>
+                </Link>
+            </div>
             {serverError && <h1>{serverError}</h1>}
-            <CardList searchResults={searchTitleResult} onBookshelfCreate={onBookshelfCreate} />
+            <CardList searchResults={searchTitleResult} onBookshelfCreate={onBookshelfCreate}/>
         </div>
     );
 }

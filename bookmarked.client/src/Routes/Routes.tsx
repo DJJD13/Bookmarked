@@ -8,6 +8,7 @@ import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import ProtectedRoute from "./ProtectedRoute";
 import BookshelfPage from "../Pages/BookshelfPage/BookshelfPage";
+import AddIsbnPage from "../Pages/AddIsbnPage/AddIsbnPage.tsx";
 
 export const router = createBrowserRouter([
 	{
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
 			{ path: "login", element: <LoginPage /> },
 			{ path: "register", element: <RegisterPage /> },
 			{ path: "search", element: <ProtectedRoute><SearchPage /></ProtectedRoute> },
+			{ path: "add-isbn", element: <ProtectedRoute><AddIsbnPage /></ProtectedRoute>},
 			{ path: "bookshelf", element: <ProtectedRoute><BookshelfPage /></ProtectedRoute> },
 			{ path: "design-guide", element: <DesignPage /> },
 			{ path: "book/:isbn", element: <ProtectedRoute><BookPage /></ProtectedRoute> },

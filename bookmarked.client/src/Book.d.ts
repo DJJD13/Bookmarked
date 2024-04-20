@@ -32,6 +32,7 @@ interface Book {
     binding: string;
     isbn: string;
     isbn10: string;
+    synopsis: string;
 }
 
 interface ISBNBookResponse {
