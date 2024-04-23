@@ -4,6 +4,8 @@ export type BookshelfGet = {
     title: string;
     coverImage: string;
     readingStatus: number;
+    pagesRead: number;
+    totalPages: number;
 }
 
 export type BookshelfPost = {

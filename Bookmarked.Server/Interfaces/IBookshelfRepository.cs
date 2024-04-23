@@ -6,7 +6,7 @@ namespace Bookmarked.Server.Interfaces
     {
         Task<List<Bookshelf>> GetUserBookshelf(AppUser user);
         Task<Bookshelf> CreateAsync(Bookshelf bookshelf);
-        Task<Bookshelf?> UpdateStatusAsync(AppUser appUser, string isbn, int status);
+        Task<Bookshelf?> UpdateAsync(AppUser appUser, string isbn, int status, int pagesRead);
         Task<Bookshelf?> DeleteBookshelf(AppUser appUser, string isbn);
     }
 }

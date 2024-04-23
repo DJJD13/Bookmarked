@@ -7,4 +7,6 @@ public class BookshelfItemDto
     public string Isbn { get; set; }
     public string CoverImage { get; set; }
     public int ReadingStatus { get; set; }
+    public int PagesRead { get; set; }
+    public int TotalPages { get; set; }
 }

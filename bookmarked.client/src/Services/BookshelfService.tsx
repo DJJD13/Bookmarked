@@ -28,9 +28,9 @@ export const bookshelfGetAPI = async () => {
     }
 };
 
-export const bookshelfUpdateStatusAPI = async (isbn: string, status: number) => {
+export const bookshelfUpdateStatusAPI = async (isbn: string, status: number, pagesRead: number) => {
     try {
-        return await axios.put<BookshelfPut>(api + `?isbn=${isbn}&status=${status}`);
+        return await axios.put<BookshelfPut>(api + `?isbn=${isbn}&status=${status}&pagesRead=${pagesRead}`);
     } catch (error) {
         handleError(error);
     }

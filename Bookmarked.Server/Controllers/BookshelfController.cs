@@ -70,7 +70,7 @@ namespace Bookmarked.Server.Controllers
 
         [HttpPut]
         [Authorize]
-        public async Task<IActionResult> UpdateReadingStatus(string isbn, int status)
+        public async Task<IActionResult> Update(string isbn, int status, int pagesRead)
         {
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
@@ -82,7 +82,7 @@ namespace Bookmarked.Server.Controllers
 
             if (filteredBook.Count != 1) return NotFound("Book was not found in your bookshelf");
 
-            await _bookshelfRepo.UpdateStatusAsync(appUser, isbn, status);
+            await _bookshelfRepo.UpdateAsync(appUser, isbn, status, pagesRead);
 
             return Ok(filteredBook.First().ToBookFromBookshelf().ToBookDto());
         }

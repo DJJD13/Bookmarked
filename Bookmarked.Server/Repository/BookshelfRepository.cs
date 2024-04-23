@@ -23,7 +23,7 @@ namespace Bookmarked.Server.Repository
             return bookshelf;
         }
 
-        public async Task<Bookshelf?> UpdateStatusAsync(AppUser appUser, string isbn, int status)
+        public async Task<Bookshelf?> UpdateAsync(AppUser appUser, string isbn, int status, int pagesRead)
         {
             var existingBookshelf = await _context.Bookshelves.FirstOrDefaultAsync(bookshelf =>
                 bookshelf.AppUserId == appUser.Id && bookshelf.Book.Isbn == isbn);
@@ -34,6 +34,7 @@ namespace Bookmarked.Server.Repository
             }
 
             existingBookshelf.ReadingStatus = status;
+            existingBookshelf.PagesRead = pagesRead;
             await _context.SaveChangesAsync();
             return existingBookshelf;
         }

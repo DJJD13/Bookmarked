@@ -30,7 +30,9 @@ public static class BookshelfMappers
             Title = bookshelfModel.Book.Title,
             Isbn = bookshelfModel.Book.Isbn,
             CoverImage = bookshelfModel.Book.CoverImage,
-            ReadingStatus = bookshelfModel.ReadingStatus
+            ReadingStatus = bookshelfModel.ReadingStatus,
+            PagesRead = bookshelfModel.PagesRead,
+            TotalPages = bookshelfModel.Book.Pages
         };
     }
 }
