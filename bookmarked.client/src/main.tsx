@@ -4,8 +4,9 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './Routes/Routes.tsx'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
   <React.StrictMode>
         <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
