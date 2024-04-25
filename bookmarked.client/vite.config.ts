@@ -37,7 +37,7 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [plugin()],
-    base: "https://gray-pebble-01d4a2f10.5.azurestaticapps.net/",
+    base: "./",
     css: {
         postcss: {
             plugins: [tailwindcss()],
