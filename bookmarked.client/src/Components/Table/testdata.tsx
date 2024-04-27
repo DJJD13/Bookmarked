@@ -5,6 +5,7 @@ export const testBookData: Book[] = [
         image: "https://images.isbndb.com/covers/00/27/9781974710027.jpg",
         title_long: "Jujutsu Kaisen, Vol. 1 (1)",
         edition: "Illustrated",
+        synopsis: "Fighting curses",
         dimensions: "Height: 7.5 Inches, Length: 5 Inches, Weight: 0.42549216566 Pounds, Width: 0.6 Inches",
         dimensions_structured: {
             length: {
@@ -42,6 +43,7 @@ export const testBookData: Book[] = [
         image: "https://images.isbndb.com/covers/00/27/9781974710027.jpg",
         title_long: "Jujutsu Kaisen, Vol. 1 (1)",
         edition: "Illustrated",
+        synopsis: "Fighting curses",
         dimensions: "Height: 7.5 Inches, Length: 5 Inches, Weight: 0.42549216566 Pounds, Width: 0.6 Inches",
         dimensions_structured: {
             length: {
@@ -79,6 +81,7 @@ export const testBookData: Book[] = [
         image: "https://images.isbndb.com/covers/00/27/9781974710027.jpg",
         title_long: "Jujutsu Kaisen, Vol. 1 (1)",
         edition: "Illustrated",
+        synopsis: "Also Fighting curses",
         dimensions: "Height: 7.5 Inches, Length: 5 Inches, Weight: 0.42549216566 Pounds, Width: 0.6 Inches",
         dimensions_structured: {
             length: {
@@ -116,6 +119,7 @@ export const testBookData: Book[] = [
         image: "https://images.isbndb.com/covers/00/27/9781974710027.jpg",
         title_long: "Jujutsu Kaisen, Vol. 1 (1)",
         edition: "Illustrated",
+        synopsis: "Also Fighting curses",
         dimensions: "Height: 7.5 Inches, Length: 5 Inches, Weight: 0.42549216566 Pounds, Width: 0.6 Inches",
         dimensions_structured: {
             length: {

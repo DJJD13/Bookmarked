@@ -2,7 +2,7 @@ import Hero from "../../Components/Hero/Hero";
 
 interface Props { }
 
-const HomePage: React.FC<Props> = (props: Props): JSX.Element => {
+const HomePage: React.FC<Props> = (): JSX.Element => {
     return <div>
         <Hero />
     </div>;

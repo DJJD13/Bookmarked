@@ -3,7 +3,7 @@ import hero from "./hero.png";
 
 interface Props { }
 
-const Hero: React.FC<Props> = (props: Props) : JSX.Element => {
+const Hero: React.FC<Props> = () : JSX.Element => {
     return (
         <section id="hero">
             <div className="container flex flex-col-reverse mx-auto p-8 lg:flex-row">

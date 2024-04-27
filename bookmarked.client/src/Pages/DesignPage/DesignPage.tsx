@@ -11,7 +11,7 @@ const tableConfig = [
     },
 ];
 
-const DesignPage: React.FC<Props> = (props: Props) : JSX.Element => {
+const DesignPage: React.FC<Props> = () : JSX.Element => {
   return (
       <>
         <h1>Bookmarked Design Page</h1>
