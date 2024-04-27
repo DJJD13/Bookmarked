@@ -35,9 +35,9 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7170';
 
 // https://vitejs.dev/config/
+// noinspection JSUnusedGlobalSymbols
 export default defineConfig({
     plugins: [plugin()],
-    base: "./",
     css: {
         postcss: {
             plugins: [tailwindcss()],
