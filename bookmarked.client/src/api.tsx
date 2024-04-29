@@ -1,15 +1,12 @@
 import axios from "axios"
 import {handleError} from "./Helpers/ErrorHandler.tsx";
 
-const headers = {
-    "Content-Type": 'application/json',
-    "Authorization": import.meta.env.VITE_API_KEY
-};
+const api = "https://localhost:7170/api/book/";
 
 export const getBookByISBN = async (query: string) => {
     try {
-        return await axios.get<ISBNBookResponse>(
-            `https://api2.isbndb.com/book/${query}`, {headers}
+        return await axios.get<Book>(
+            api + `bookbyisbn?isbn=${query}`
         );
     } catch (error) {
         handleError(error);
@@ -19,7 +16,7 @@ export const getBookByISBN = async (query: string) => {
 export const searchByTitle = async (query: string) => {
     try {
         return await axios.get<BookTitleSearch>(
-            `https://api2.isbndb.com/books/${query}?page=1&pageSize=20`, {headers}
+            api + `booksbytitle?title=${query}`
         );
     } catch (error) {
        handleError(error); 
@@ -29,7 +26,7 @@ export const searchByTitle = async (query: string) => {
 export const getAuthorDetails = async (query: string) => {
     try {
         return await axios.get<AuthorBookDetails>(
-            `https://api2.isbndb.com/author/${query}?page=1&pageSize=15`, {headers}
+            api + `booksbyauthor?name=${query}`
         );
     } catch (error) {
         handleError(error);

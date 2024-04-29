@@ -54,11 +54,8 @@
         public string ePub { get; set; }
     }
 
-    public class IsbnRoot
-    {
-        public IsbnBook book { get; set; }
-    }
-
+    
+    
     public class Weight
     {
         public string unit { get; set; }
@@ -69,5 +66,22 @@
     {
         public string unit { get; set; }
         public double value { get; set; }
+    }
+    
+    public class IsbnRoot
+    {
+        public IsbnBook book { get; set; }
+    }
+    
+    public class IsbnBookSearch
+    {
+        public int total { get; set; }
+        public List<IsbnBook> books { get; set; }
+    }
+
+    public class IsbnAuthorBooks
+    {
+        public string author { get; set; }
+        public List<IsbnBook> books { get; set; }
     }
 }

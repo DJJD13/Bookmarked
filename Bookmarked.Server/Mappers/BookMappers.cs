@@ -1,4 +1,5 @@
 ﻿using Bookmarked.Server.Dtos.Book;
+using Bookmarked.Server.Extensions;
 using Bookmarked.Server.Models;
 
 namespace Bookmarked.Server.Mappers
@@ -44,7 +45,7 @@ namespace Bookmarked.Server.Mappers
                 Title = isbnBook.title,
                 Author = isbnBook.authors[0],
                 Synopsis = isbnBook.synopsis,
-                DatePublished = DateTime.Parse(isbnBook.date_published),
+                DatePublished = StaticHelpers.ParseDatePublished(isbnBook.date_published),
                 Msrp = (decimal)isbnBook.msrp,
                 Isbn = isbnBook.isbn13,
                 CoverImage = isbnBook.image,

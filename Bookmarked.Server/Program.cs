@@ -51,9 +51,11 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
 
+var connection = builder.Environment.IsDevelopment() ? builder.Configuration.GetConnectionString("DefaultConnection") 
+    : Environment.GetEnvironmentVariable("SQLAZURECONNSTR_BOOKMARKEDD_CONN_STR");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(connection);
 });
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -113,7 +115,7 @@ app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader()
     .AllowCredentials()
-    //.WithOrigins("https://localhost:44351"))
+    //.WithOrigins("*")
     .SetIsOriginAllowed(origin => true)
 );
 

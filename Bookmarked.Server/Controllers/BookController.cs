@@ -11,9 +11,10 @@ namespace Bookmarked.Server.Controllers
 {
     [Route("api/book")]
     [ApiController]
-    public class BookController(IBookRepository bookRepo) : ControllerBase
+    public class BookController(IBookRepository bookRepo, IISBNdbService isbnService) : ControllerBase
     {
         private readonly IBookRepository _bookRepo = bookRepo;
+        private readonly IISBNdbService _isbnService = isbnService;
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
@@ -38,6 +39,38 @@ namespace Bookmarked.Server.Controllers
             }
 
             return Ok(book.ToBookDto());
+        }
+
+        [HttpGet]
+        [Route("booksbytitle")]
+        public async Task<IActionResult> GetBooksByTitle([FromQuery] string title)
+        {
+            var books = await _isbnService.FindBooksAsync(title);
+
+            return Ok(new { total = books.Count, books});
+        }
+        
+        [HttpGet]
+        [Route("booksbyauthor")]
+        public async Task<IActionResult> GetBooksByAuthor([FromQuery] string name)
+        {
+            var books = await _isbnService.FindBooksByAuthorAsync(name);
+        
+            return Ok(new {author = name, books});
+        }
+        
+        [HttpGet]
+        [Route("bookbyisbn")]
+        public async Task<IActionResult> GetBookByIsbn([FromQuery] string isbn)
+        {
+            var book = await _isbnService.FindBookByISBNAsync(isbn);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+        
+            return Ok(book);
         }
 
         [HttpPost]

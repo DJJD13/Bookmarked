@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using Bookmarked.Server.Controllers;
+using Bookmarked.Server.Dtos.Book;
 using Bookmarked.Server.Dtos.Comment;
 using Bookmarked.Server.Helpers;
 using Bookmarked.Server.Interfaces;
@@ -138,7 +139,7 @@ public class CommentControllerTests
         _mockBookRepo.Setup(repo => repo.GetByIsbnAsync(It.IsAny<string>()))
             .ReturnsAsync((Book?)null);
         _mockISBNService.Setup(service => service.FindBookByISBNAsync(It.IsAny<string>()))
-            .ReturnsAsync((Book?)null);
+            .ReturnsAsync((IsbnBook?)null);
 
         var result = await _controller.Create("1234", new CreateCommentRequestDto());
 

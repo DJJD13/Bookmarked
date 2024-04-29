@@ -11,12 +11,14 @@ namespace Bookmarked.Tests.Controller;
 public class BookControllerTests
 {
    private readonly Mock<IBookRepository> _mockRepo;
+   private readonly Mock<IISBNdbService> _mockIsbnService;
    private readonly BookController _controller;
 
    public BookControllerTests()
    {
       _mockRepo = new Mock<IBookRepository>();
-      _controller = new BookController(_mockRepo.Object);
+      _mockIsbnService = new Mock<IISBNdbService>();
+      _controller = new BookController(_mockRepo.Object, _mockIsbnService.Object);
    }
 
    [Fact]

@@ -119,7 +119,7 @@ public class BookshelfControllerTests
         var testUser = new AppUser { UserName = "testuser" };
         _mockUserManager.Setup(repo => repo.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(testUser);
         _mockBookRepo.Setup(repo => repo.GetByIsbnAsync(It.IsAny<string>())).ReturnsAsync((Book?)null);
-        _mockIsbnService.Setup(service => service.FindBookByISBNAsync(It.IsAny<string>())).ReturnsAsync((Book?)null);
+        _mockIsbnService.Setup(service => service.FindBookByISBNAsync(It.IsAny<string>())).ReturnsAsync((IsbnBook?)null);
         
         // Act
         var result = await _controller.AddBookshelf("123");

@@ -35,10 +35,6 @@ interface Book {
     synopsis: string;
 }
 
-interface ISBNBookResponse {
-    book: Book;
-}
-
 interface BookTitleSearch {
     total: number;
     books: Book[];

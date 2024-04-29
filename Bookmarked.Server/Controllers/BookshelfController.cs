@@ -46,9 +46,9 @@ namespace Bookmarked.Server.Controllers
 
             if (book == null)
             {
-                book = await _isbndbService.FindBookByISBNAsync(isbn);
-                if (book == null) return BadRequest("Book was not found");
-
+                var isbnBook = await _isbndbService.FindBookByISBNAsync(isbn);
+                if (isbnBook == null) return BadRequest("Book was not found");
+                book = isbnBook.ToBookFromIsbnBook();
                 await _bookRepo.CreateAsync(book);
             }
 

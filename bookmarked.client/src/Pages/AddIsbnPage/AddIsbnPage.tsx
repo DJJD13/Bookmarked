@@ -29,7 +29,7 @@ const AddIsbnPage: React.FC = () : JSX.Element => {
         if (typeof result === "string") {
             handleError(result);
         } else if (typeof result?.data === "object") {
-            setSearchIsbnResult(result?.data.book);
+            setSearchIsbnResult(result?.data);
         }
     }
     return (
