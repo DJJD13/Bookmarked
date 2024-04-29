@@ -16,7 +16,7 @@ const BookPage: React.FC<Props> = (): JSX.Element => {
 			if (typeof result === "string") {
 				handleError(result);
 			} else if (typeof result?.data === "object") {
-				setBookDetails(result?.data.book);
+				setBookDetails(result?.data);
 			}
 		};
 		getBookInit();
