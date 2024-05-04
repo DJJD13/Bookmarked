@@ -1,7 +1,7 @@
 import axios from "axios"
 import {handleError} from "./Helpers/ErrorHandler.tsx";
 
-const api = "https://localhost:7170/api/book/";
+const api =  import.meta.env.VITE_API_BASE_URL + "book/";
 
 export const getBookByISBN = async (query: string) => {
     try {

@@ -2,7 +2,7 @@ import axios from "axios";
 import {handleError} from "../Helpers/ErrorHandler";
 import {BookshelfGet, BookshelfPost, BookshelfPut} from "../Models/Bookshelf";
 
-const api = "https://localhost:7170/api/bookshelf/";
+const api = import.meta.env.VITE_API_BASE_URL + "bookshelf/";
 
 export const bookshelfAddAPI = async (isbn: string) => {
     try {

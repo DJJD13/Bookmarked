@@ -3,7 +3,7 @@ import logo from "./logo-placeholder.png";
 import { useAuth } from "../../Context/useAuth";
 import { GiBookshelf } from "react-icons/gi";
 import { FaSearch } from "react-icons/fa";
-import { Tb123 } from "react-icons/tb";
+import { AiOutlineFieldNumber } from "react-icons/ai";
 
 const NavBar: React.FC = (): JSX.Element => {
     const { isLoggedIn, user, logout } = useAuth();
@@ -21,7 +21,7 @@ const NavBar: React.FC = (): JSX.Element => {
                         {isLoggedIn() ? (
                             <>
                                 <Link to="add-isbn" className={"flex items-center text-black hover:text-darkBlue mr-5"}>
-                                    <Tb123 className={"mr-1"} /> <span>Add via ISBN</span>
+                                    <AiOutlineFieldNumber className={"mr-1"} /> <span>Add via ISBN</span>
                                 </Link>
                                 <Link to="/bookshelf" className="flex items-center hover:text-darkBlue">
                                     <GiBookshelf className={"mr-1"} /> <span>My Bookshelf</span>
