@@ -90,6 +90,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", corsPolicyBuilder => 
+        corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
@@ -111,13 +116,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials()
-    .WithOrigins("*")
-    .SetIsOriginAllowed(origin => true)
-);
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
